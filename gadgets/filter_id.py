@@ -13,7 +13,7 @@ if len(sys.argv) == 3:
     content = set(content)
     inp.close()
 
-    filt = re.compile('^[A-Za-z_]*$')
+    filt = re.compile('^[-\w]*$')
     for wechatid in content:
         wechatid = wechatid.strip()
         if filt.match(wechatid):

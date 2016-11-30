@@ -33,7 +33,7 @@ def get_articles(wid):
             try:
                 article = wechats.deal_article_content(url=d['content_url'])
                 page = etree.HTML(article)
-                pure_txt = ' '.join(list(filter(None, page.xpath('//body//*/text()'))))
+                pure_txt = '\n'.join(list(filter(None, page.xpath('//body//*/text()'))))
                 timestamp = d['datetime']
                 with open('/home/tatianajin/Wechat/data/%s/%s_%s.txt' % (wid, wid, timestamp), 'w') as out_article:
                     out_article.write('%s\n' % pure_txt)

@@ -13,7 +13,7 @@ import re
 logging.config.fileConfig('/home/tatianajin/Wechat/logging.conf')
 logger = logging.getLogger()
 wechats = WechatSogouApi()
-filt = re.compile('^[A-Za-z_]*$')
+filt = re.compile('^[-\w]*$')
 
 # TODO use bloom filter to detect if wechatid is already in list
 id_file = open('/home/tatianajin/Wechat/data/id/id.txt', 'r')
@@ -42,10 +42,10 @@ def get_id_from_url(urls = None): # read article url, print wechatid
                     wechatid_set.add(wechatid)
                     if not os.path.exists('/home/tatianajin/Wechat/data/%s' % wechatid):
                         os.makedirs('/home/tatianajin/Wechat/data/%s' % wechatid)
-                    try:
+                    #try:
                         #ga.get_articles(wechatid)
-                    except:
-                        pass
+                    #except:
+                    #    pass
 
         except:
             sys.stderr.write('html parse error: cannot get id from url %s' % this_url)
