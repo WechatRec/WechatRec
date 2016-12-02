@@ -1,9 +1,9 @@
-//1st
-//map
-//emit [word,doc_id] 
+1st
+map
+emit [word,doc_id] 
 
-//reduce to 1 reducer
-//emit dict[word]  
+reduce to 1 reducer
+emit dict[word]  
 array[word_indx,array[doc_id]]
 
 //todo
