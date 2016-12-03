@@ -1,2 +1,0 @@
-hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -input /user/input/* -output /user/output -file ~/Documents/dict/stopwords.txt -mapper ~/Documents/dict/mapper.py -reducer ~/Documents/dict/reducer.py  
-
