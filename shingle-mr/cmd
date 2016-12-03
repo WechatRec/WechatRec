@@ -1,0 +1,5 @@
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -input /user/input/* -output /user/output -file ~/Documents/dict/stopwords.txt -mapper ~/Documents/dict/mapper.py -reducer ~/Documents/dict/reducer.py  
+
+
+
+hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-2.7.3.jar -D stream.map.output.field.seperator='\t' -D stream.num.map.output.key.fields=1 -D map.output.key.field.seperator='\t' -D mapred.text.key.partitioner.options=-k1 -input /user/input2 -output /user/output2 -mapper ~/Documents/dict/mapper2.py -reducer ~/Documents/dict/reducer2.py -partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner
