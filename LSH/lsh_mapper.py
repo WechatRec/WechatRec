@@ -12,7 +12,7 @@ config = minhash.get_config(sys.argv[1])
 sig_size = int(config['sig_size'])
 num_shingle = int(config['num_shingle'])
 band_size = int(config['band_size'])
-doc_file = 'sample_input_file_2.txt'
+doc_file = 'sample_input_file.txt'
  
 def get_band(l, n):
     for i in xrange(0, len(l), n):
