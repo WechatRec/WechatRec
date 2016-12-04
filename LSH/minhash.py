@@ -81,9 +81,7 @@ def get_config(config_path):
 
 config = get_config(sys.argv[1])
 prime_file = config['prime']
-dictionary = config['dict']
 random.seed(int(config['seed']))
 sig_size = int(config['sig_size'])
-num_shingle = int(config['num_shingle'])
+num_shingle = int(sys.argv[2])
 band_size = int(config['band_size'])
-# print minHash(sig_size, num_shingle, [5,8,9,10])

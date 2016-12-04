@@ -33,16 +33,17 @@ def mode_precise(k,f):
 	j=j.encode('UTF-8')
 	print '%s\t%s' % (j, os.environ['mapreduce_map_input_file'].split('/')[-1])
 
-f=sys.stdin
-mode_precise(2,f)
-#raw=f.read()
-#raw=raw.replace('\n',' ')
-#word_list = jieba.cut(raw, cut_all = True, HMM=False)
-#stopw = [line.strip() for line in open('stopwords.txt').readlines()]
+def mode_all(f):
+    raw=f.read()
+    raw=raw.replace('\n',' ')
+    word_list = jieba.cut(raw, cut_all = True, HMM=False)
+    stopw = [line.strip() for line in open('stopwords.txt').readlines()]
 
-#word_list=set(word_list)-set(stopw)
-#for i in word_list:
-#	i=i.encode('UTF-8')
-#	print '%s\t%s' % (i, os.environ['mapreduce_map_input_file'].split('/')[-1])
-#mode_all(f)
+    word_list=set(word_list)-set(stopw)
+    for i in word_list:
+        i=i.encode('UTF-8')
+        print '%s\t%s' % (i, os.environ['mapreduce_map_input_file'].split('/')[-1])
+
+f=sys.stdin
 #mode_precise(2,f)
+mode_all(f)
