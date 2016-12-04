@@ -99,10 +99,9 @@ def main():
 #config = get_config(sys.argv[1])
 #num_shingle = int(sys.argv[2])
 config = get_config('config')
-num_shingle = 1420
+num_shingle = int(config['num_shingle'])
 sig_size = int(config['sig_size'])
 band_size = int(config['band_size'])
-doc_file = 'sample_input_file.txt'
 prime_file = config['prime']
 
 if __name__ == '__main__':

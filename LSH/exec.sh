@@ -1,8 +1,9 @@
-INPUT_PATH=input
+INPUT_PATH=/home/hduser/WechatRec/data
 
 # get dictionary
 rm -r -f out
-hadoop jar $HADOOP_STREAMING -mapper mapper.py -reducer reducer.py -input $INPUT_PATH -output out -file stopwords.txt
+# specify cache dir for jieba and how many tokens in one shingle
+hadoop jar $HADOOP_STREAMING -mapper 'mapper.py /home/hduser/WechatRec/cache 1' -reducer reducer.py -input $INPUT_PATH -output out -file stopwords.txt
 
 # map shingles to index
 rm -f dict.txt
@@ -16,6 +17,8 @@ hadoop jar $HADOOP_STREAMING -mapper mapper2.py -reducer reducer2.py -input inte
 
 # minhash and lsh
 num_shingle=`wc -l inter | cut -f1 -d' '`
+# config
+printf "prime=primes.txt\nseed=599\nsig_size=200\nband_size=1\nnum_shingle=$num_shingle" > config
 rm -r -f out3
 hadoop jar $HADOOP_STREAMING -file lsh_mapper.py -mapper 'lsh_mapper.py config $num_shingle' -reducer lsh_reducer.py -input out2/part* -output out3
 
