@@ -6,22 +6,22 @@ file=sys.stdin
 
 dic=[]
 a=[]
+doc=[]
 for i in file:
-    d,t=i.split('\t')
+    d,t=i.split('\t')	#d word    t document_id
     t=t.strip()
+    if t not in doc:
+        doc.append(t)
     if d in dic:
-	if t in a[dic.index(d)]:
-		continue
-	else:
-        	a[dic.index(d)].append(t)
+        a[dic.index(d)].append(t)
     else:
         dic.append(d)
-        l=[t]
-        a.append(l)
-
+        a.append([t])
 
 for i in range(len(dic)):
-    print '%s\t%s' % (dic[i], '\t'.join(a[i]))
-
-
-
+    wordInDoc = ''
+    for doc_id in doc:
+        freq = a[i].count(doc_id)
+        if freq > 0:
+            wordInDoc = '%s\t%s:%s' % (wordInDoc, doc_id, freq)
+    print '%s%s' % (dic[i], wordInDoc)

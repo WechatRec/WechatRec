@@ -1,4 +1,4 @@
-INPUT_PATH=/home/hduser/WechatRec/data
+INPUT_PATH=/home/hduser/WechatRec/LSH/input
 
 # get dictionary
 rm -r -f out
@@ -14,6 +14,9 @@ rm -r -f out
 # get document vector
 rm -r -f out2
 hadoop jar $HADOOP_STREAMING -mapper mapper2.py -reducer reducer2.py -input inter -output out2
+# get document vector with weight
+rm -r -f out_lda
+hadoop jar $HADOOP_STREAMING -mapper mapper2_w8.py -reducer reducer2.py -input inter -output out_lda
 
 # minhash and lsh
 num_shingle=`wc -l inter | cut -f1 -d' '`
@@ -25,3 +28,8 @@ hadoop jar $HADOOP_STREAMING -file lsh_mapper.py -mapper 'lsh_mapper.py config $
 # get candidates for each article
 rm -r -f out4
 hadoop jar $HADOOP_STREAMING -mapper identity.py -reducer candidate.py -input out3/part* -output out4
+
+# get clusters of docs
+rm -f adjacency
+cat out4/part* >> adjacency
+python cc.py adjacency

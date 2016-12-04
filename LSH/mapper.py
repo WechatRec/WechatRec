@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 #@param1: cache path for jieba
+# @param2: number of tokens in a shingle
 
 import jieba
 import sys
