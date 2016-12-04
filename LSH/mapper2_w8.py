@@ -11,4 +11,4 @@ for line in f:
 	word = line.strip().split('\t')[0]
 	doc = line.strip().split('\t')[1:]
 	for i in doc:
-            print '%s\t%s' % (i.split(':')[0], word)
+            print '%s\t%s:%s' % (i.split(':')[0], word, i.split(':')[1])
