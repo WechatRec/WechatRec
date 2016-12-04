@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+#@param1: cache path for jieba
+
 import jieba
 import sys
 import os
@@ -7,7 +9,7 @@ import os
 
 #jieba.load_userdict('dict.txt')
 ##extract all possible words
-
+jieba.dt.tmp_dir = sys.argv[1]
 
 def mode_precise(k,f):
     shin_list=[]
@@ -45,5 +47,5 @@ def mode_all(f):
         print '%s\t%s' % (i, os.environ['mapreduce_map_input_file'].split('/')[-1])
 
 f=sys.stdin
-#mode_precise(2,f)
-mode_all(f)
+mode_precise(int(sys.argv[2]),f)
+#mode_all(f)
