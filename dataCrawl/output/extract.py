@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 #!/usr/bin/python
 
-# from lxml import etree
-# import itertools
-# import sys
-# import time
 from os import listdir,walk
 from os.path import isfile, join, dirname, realpath
 import json
