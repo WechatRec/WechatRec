@@ -9,7 +9,7 @@ def load_graph(path):
     with open(path, 'r') as f:
         for line in f:
             src, dests = line.strip().split('\t', 1)
-            dests = dests.split(',')
+            dests = dests.split('\t')
             graph[src] = dests
     return graph
 
