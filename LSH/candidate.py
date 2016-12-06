@@ -10,8 +10,8 @@ for line in sys.stdin:
         candidates.add(can)
     else:
         if prev_doc != None and len(candidates) > 0:
-            print '%s\t%s' % (prev_doc, ','.join(candidates))
+            print '%s\t%s' % (prev_doc, '\t'.join(candidates))
         candidates = set([can])
         prev_doc = doc
 if prev_doc != None and len(candidates) > 0:
-    print '%s\t%s' % (prev_doc, ','.join(candidates))
+    print '%s\t%s' % (prev_doc, '\t'.join(candidates))
