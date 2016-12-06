@@ -1,46 +1,28 @@
 #!/usr/bin/env python
 
-
-
 #@param1: cache path for jieba
-
 # @param2: number of tokens in a shingle
 
-
-
 import jieba
-
 import sys
-
 import os
 
 #from gensim import corpora, models, similarities
-
-
-
 #jieba.load_userdict('dict.txt')
-
 ##extract all possible words
 
 jieba.dt.tmp_dir = sys.argv[1]
 
-
-
 def mode_precise(k,f):
-
-    shin_list=[]
-
-    #f= open('dat','r')
-
     for line in f:
-        
-        name,raw=line.strip().decode('UTF-8').split('\t')
+        shin_list=[]
+        name,raw=line.strip().split('\t')
         word_list = list(jieba.cut(raw, cut_all = False, HMM=False))
         stopw = set([line.strip().decode('UTF-8') for line in open('stopwords.txt').readlines()])
 
         ## delete the stopword and append k nearest one
 
-        
+
 
         offset=0
 
@@ -93,7 +75,7 @@ def mode_all(f):
 
         i=i.encode('UTF-8')
 
-        print('%s\t%s' % (i, os.environ['mapreduce_map_input_file'].split('/')[-1]))
+        #print('%s\t%s' % (i, os.environ['mapreduce_map_input_file'].split('/')[-1]))
 
 
 f=sys.stdin

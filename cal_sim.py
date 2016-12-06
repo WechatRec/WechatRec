@@ -24,7 +24,10 @@ def get_vector(vector_path):
 get_vector(vector_path)
 # load clusters of documents
 f1 = open(cluster_path, 'r')
+cluster_idx = 0
 for line in f1: # for each cluster, perform lda
+    cluster_idx += 1
+    cluster_out = open('cluster_%d' % cluster_idx, 'w')
     doc_ids = line.strip().split()
     # get vector representation of each doc in the cluster
     docs = [doc_dict.get(doc) for doc in doc_ids]
@@ -33,6 +36,8 @@ for line in f1: # for each cluster, perform lda
     docs_tfidf = tfidf[docs]
     # fit lda model
     lda = models.LdaModel(docs_tfidf, num_topics = num_topics)
+    for t in lda.print_topics():
+        cluster_out.write('%s\n' % str(t[-1]))
 # index for similarity queries
     docs_lda = lda[docs_tfidf]
     index = similarities.MatrixSimilarity(docs_lda)
@@ -41,6 +46,7 @@ for line in f1: # for each cluster, perform lda
     for doc_lda in docs_lda:
         related = sorted(enumerate(index[doc_lda]), key=lambda item:item[-1], reverse=True)
         related = ['%s:%.3f' % (doc_ids[r[0]], r[1]) for r in related]
-        print '%s\t%s' % (doc_ids[idx], '\t'.join(related))
+        cluster_out.write('%s\t%s\n' % (doc_ids[idx], '\t'.join(related)))
         idx += 1
+    cluster_out.close()
 f1.close()
