@@ -16,46 +16,29 @@ jieba.dt.tmp_dir = sys.argv[1]
 def mode_precise(k,f):
     for line in f:
         shin_list=[]
-        name,raw=line.strip().split('\t')
-        word_list = list(jieba.cut(raw, cut_all = False, HMM=False))
-        stopw = set([line.strip().decode('UTF-8') for line in open('stopwords.txt').readlines()])
+        line =line.strip().split('\t', 1)
+        if len(line) == 2:
+            name = line[0]
+            raw = line[1].replace('\t', ' ')
+            word_list = list(jieba.cut(raw, cut_all = False, HMM=False))
+            stopw = set([line.strip().decode('UTF-8') for line in open('stopwords.txt').readlines()])
+            ## delete the stopword and append k nearest one
+            offset=0
+            for i in range(len(word_list)):
+                if word_list[i-offset] in stopw or word_list[i-offset]==' ':
+                    del word_list[i-offset]
+                    offset+=1
 
-        ## delete the stopword and append k nearest one
-
-
-
-        offset=0
-
-        for i in range(len(word_list)):
-
-            if word_list[i-offset] in stopw or word_list[i-offset]==' ':
-
-                del word_list[i-offset]
-
-                offset+=1
-
-
-
-        for i in range(len(word_list)-k):
-
-            string=""
-
-            for j in range(k):
-
-                string+=word_list[i+j]
-
-            shin_list.append(string)
-
-        #print(word_list)
-
-        for j in shin_list:
-
-            j=j.encode('UTF-8')
-            name=name.encode('UTF-8')
-
-            print('%s\t%s' % (j, name))
-
-
+            for i in range(len(word_list)-k):
+                string=""
+                for j in range(k):
+                    string+=word_list[i+j]
+                shin_list.append(string)
+            #print(word_list)
+            for j in shin_list:
+                j=j.encode('UTF-8')
+                name=name.encode('UTF-8')
+                print('%s\t%s' % (j, name))
 
 def mode_all(f):
 

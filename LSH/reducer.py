@@ -8,7 +8,7 @@ dic=[]
 a=[]
 doc=[]
 for i in file:
-    d,t=i.split('\t')	#d word    t document_id
+    d,t=i.split('\t', 1)	#d word    t document_id
     t=t.strip()
     if t not in doc:
         doc.append(t)
